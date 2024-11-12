@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maha Mantra</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <section>
+
+        <h1>Cante Hare Krishna e Seja Feliz</h1>
+        <hr>
+        <p>Hare Krishna</p>
+        <p>Hare Krishna</p>
+        <p>Krishna Krishna</p>
+        <p>Hare Hare</p>
+        <p>Hare Rama</p>
+        <p>Hare Rama</p>
+        <p>Rama Rama</p>
+        <p>Hare Hare</p>
+
+        <div id="counters">
+            <div class="counter-box" id="loopCounter">001</div>
+            <div class="counter-box" id="sequenceCounter">01</div>
+        </div>
+
+        <audio id="chantAudio" src="chant.wav" preload="auto"></audio>
+        
+    </section>
+
+    <script>
+
+        const audio = document.getElementById('chantAudio');
+        const loopCounter = document.getElementById('loopCounter');
+        const sequenceCounter = document.getElementById('sequenceCounter');
+
+        let loopCount = 1;
+        let sequenceCount = 1;
+        let maxLoops = 108;
+        let maxSequences = 16;
+
+        window.addEventListener('load', () =>{
+
+            setTimeout(() =>{
+            playChant();
+        }, 4000);
+
+        });
+
+        function playChant(){
+            audio.currentTime = 0;
+            audio.play();
+        }
+
+        audio.onended = () => {
+            if (loopCount < maxLoops) {
+                loopCount++;
+                updateCounterDisplay();
+                audio.play();
+            } else {
+                loopCount = 1;
+                if (sequenceCount < maxSequences) {
+                    sequenceCount++;
+                    updateCounterDisplay();
+                    audio.play();
+                } else {
+                    console.log("O evento foi concluído.");
+                }
+            }
+        }
+        
+        function updateCounterDisplay() {
+            loopCounter.textContent = String(loopCount).padStart(3, '0');
+            sequenceCounter.textContent = String(sequenceCount).padStart(2, '0');
+        }
+
+    </script>
+    
+</body>
+</html>
